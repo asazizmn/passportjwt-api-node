@@ -12,8 +12,8 @@ var express = require('express'),
 
 
 // setup middleware
-// log requests to console
 app.use(logger('dev'));
+app.use('port', process.env.PORT || 3000);
 
 // enable CORS from client-side
 // please note that settings ACAO to '*' will normally prevent requests to supply credentials,
@@ -27,5 +27,5 @@ app.use(function(req, res, next) {
 
 
 // start the server
-var server = app.listen(config.port);
-console.log('Your server is running on port ' + config.port + '.');
+var server = app.listen(app.get('port'));
+console.log('Your server is running on port ' + app.get('port') + '.');
