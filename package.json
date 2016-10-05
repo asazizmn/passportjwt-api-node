@@ -1,0 +1,10 @@
+{
+  "name": "node-passport-jwt",
+  "version": "1.0.0",
+  "description": "Node based authentication that configures Passport.js to work with JWT. Please note that this is only the server side code.",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "morgan": "^1.7.0"
+  }
+}
