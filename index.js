@@ -11,7 +11,8 @@ var express = require('express'),
     logger = require('morgan'),
     mongoose = require('mongoose'),
     bcrypt = require('bcrypt-nodejs'),
-    config = require('./config.js');
+    config = require('./config.js'),
+    User = require('./models/User');
 
 
 // setup middleware
