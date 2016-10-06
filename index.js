@@ -19,7 +19,7 @@ var express = require('express'),
 // 'extended: false' uses querystring library
 // but 'extended: true' uses qs library thats parses objects or any other types, 
 // allowing for JSON-like experience 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
@@ -30,7 +30,7 @@ app.use(logger('dev'));
 // please note that settings ACAO to '*' will normally prevent requests to supply credentials,
 // i.e. (HTTP authentication, client-side SSL certificates, cookies)
 // however, however it will permit us to provide a token within the HTTP header
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
