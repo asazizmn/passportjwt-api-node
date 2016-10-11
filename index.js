@@ -11,7 +11,7 @@
  * settle requirements 
  */
 
-var express = require('express'),
+const express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
     logger = require('morgan'),
