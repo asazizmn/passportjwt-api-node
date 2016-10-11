@@ -7,57 +7,55 @@
 
 
 
-var mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
 
     // used to handle password hashing
-    bcrypt = require('bcrypt-nodejs');
+    bcrypt = require('bcrypt-nodejs'),
 
+    // please note the mongoose schema validators in use
+    UserSchema = new mongoose.Schema(
+        {
+            email: {
+                type: String,
+                lowercase: true,
+                unique: true,
+                required: true
+            },
 
+            password: {
+                type: String,
+                required: true
+            },
 
-// please note the mongoose schema validators in use
-var UserSchema = new mongoose.Schema(
-    {
-        email: {
-            type: String,
-            lowercase: true,
-            unique: true,
-            required: true
-        },
+            profile: {
+                firstName: {
+                    type: String
+                },
+                lastName: {
+                    type: String
+                }
+            },
 
-        password: {
-            type: String,
-            required: true
-        },
+            // 'enum' forces one of the specified values to be used
+            role: {
+                type: String,
+                enum: ['Member', 'Client', 'Owner', 'Admin'],
+                default: 'Member'
+            },
 
-        profile: {
-            firstName: {
+            resetPasswordToken: {
                 type: String
             },
-            lastName: {
-                type: String
+
+            resetPasswordExpress: {
+                type: Date
             }
         },
 
-        // 'enum' forces one of the specified values to be used
-        role: {
-            type: String,
-            enum: ['Member', 'Client', 'Owner', 'Admin'],
-            default: 'Member'
-        },
-
-        resetPasswordToken: {
-            type: String
-        },
-
-        resetPasswordExpress: {
-            type: Date
+        {
+            timestamps: true
         }
-    },
-
-    {
-        timestamps: true
-    }
-);
+    );
 
 
 
@@ -66,7 +64,7 @@ var UserSchema = new mongoose.Schema(
  * pls nt argument 'next' is a method passed while saving i.e. user.save(function(err, user) ... ) 
  */
 UserSchema.pre('save', function (next) {
-    var user = this,
+    const user = this,
         SALT_FACTOR = 5;
 
     // 'isModified' - mongoose method

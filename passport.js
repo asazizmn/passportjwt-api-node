@@ -13,7 +13,7 @@
  * setup requirements & configurations 
  */
 
-var passport = require('passport'),
+const passport = require('passport'),
     LocalStrategy = require('passport-local'),
     JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt,
@@ -45,6 +45,8 @@ var passport = require('passport'),
 
 
     // now setup jwt login strategy to allow for the return of jwt upon authentication
+    // please note that 'payload' is an object literal containing the decoded JWT payload
+    // adapted from https://github.com/themikenicholson/passport-jwt
     jwtOptions = {
         jwtFromRequest: ExtractJwt.fromAuthHeader(),
         secretOrKey: config.jwtKey
@@ -54,6 +56,7 @@ var passport = require('passport'),
         // payload._id vs payload.doc._id vs payload.document._id
         // check console.log(payload)
 
+        // User.findOne({ _id: payload._id }, function(err, user) {
         User.findById(payload._id, function(err, user) {
             if (err) return next(err, false);
             if (!user) return next(null, false);
