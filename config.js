@@ -6,6 +6,7 @@
  */
 
 
+
 module.exports = {
     jwtKey: 'N3xCh@ng3',
     database: 'mongodb://localhost/node-passport-jwt'
