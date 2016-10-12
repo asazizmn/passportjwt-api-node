@@ -7,7 +7,7 @@
 
 
 
-const mongoose = require('mongoose'),
+var mongoose = require('mongoose'),
 
     // used to handle password hashing
     bcrypt = require('bcrypt-nodejs'),
@@ -64,7 +64,7 @@ const mongoose = require('mongoose'),
  * pls nt argument 'next' is a method passed while saving i.e. user.save(function(err, user) ... ) 
  */
 UserSchema.pre('save', function (next) {
-    const user = this,
+    var user = this,
         SALT_FACTOR = 5;
 
     // 'isModified' - mongoose method

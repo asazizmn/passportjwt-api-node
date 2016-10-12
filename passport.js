@@ -1,9 +1,10 @@
 /*
  * passport.js
  * - authentication and relevant strategy configurations
- * - the actual jwt creation happens w/in authentication.js
+ * - i.e. configuring passport to work with jwt,
+ *   but the actual jwt creation happens w/in authentication.js
  * 
- * pls. nt:
+ * please note:
  * - 'Passport' is authentication middleware for Node.js
  * - it authenticates requests through an extensible set of plugins known as 'strategies' (i.e. Local, OpenID, Facebook, Twitter, etc)
  * - the application provides 'Passport' a request to authenticate, 
@@ -16,7 +17,7 @@
  * setup requirements & configurations 
  */
 
-const passport = require('passport'),
+var passport = require('passport'),
     LocalStrategy = require('passport-local'),
     JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt,
