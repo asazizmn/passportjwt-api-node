@@ -27,13 +27,13 @@ var jwt = require('jsonwebtoken'),
     },
 
     /** select user info to be included in jwt */
-    setUserInfo = function (req) {
+    setUserInfo = function (user) {
         return {
-            _id: req._id,
-            firstName: req.profile.firstname,
-            lastName: req.profile.lastName,
-            email: req.email,
-            role: req.role
+            _id: user._id,
+            firstName: user.profile.firstname,
+            lastName: user.profile.lastName,
+            email: user.email,
+            role: user.role
         }
     };
 
