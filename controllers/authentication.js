@@ -71,11 +71,11 @@ module.exports.register = function (req, res, next) {
     if (!req.body.password) return res.status(UNPROCESSABLE).send({ error: 'You must enter a password.' });
 
     // search for existing user
-    User.findOne({ email: email }, function (err, existingUser) {
+    User.findOne({ email: email }, function (err, foundUser) {
         var user;
         
         if (err) return next(err);
-        if (existingUser) return res.status(UNPROCESSABLE).send({ error: 'The email address is already in use.' });
+        if (foundUser) return res.status(UNPROCESSABLE).send({ error: 'The email address is already in use.' });
 
         // valid email and password provided, create account 
         user = new User({
@@ -84,13 +84,13 @@ module.exports.register = function (req, res, next) {
             profile: { firstName: firstName, lastName: lastName }
         });
 
-        user.save(function (err, user) {
+        user.save(function (err, savedUser) {
             var userInfo;
             
             if (err) return next(err);
 
             // respond with jwt for newly created user
-            userInfo = setUserInfo(user);
+            userInfo = setUserInfo(savedUser);
             res.status(CREATED).json({
                 token: 'JWT' + generateToken(userInfo),
                 user: userInfo
