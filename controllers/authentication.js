@@ -20,6 +20,13 @@ var jwt = require('jsonwebtoken'),
     config = require('./../config'),
 
 
+    // HTTP STATUSES 
+    OK = 200,               // request succeeded
+    CREATED = 201,          // request fulfilled and resulted in a new resource being created
+    UNAUTHORISED = 401,     // authentication credentials were missing or incorrect
+    UNPROCESSABLE = 422,    // data syntactically correct, but semantically erroneous i.e. data not found
+
+
     /** generate jwt, valid for 3 hours */
     // generateToken = user => jwt.sign(user, config.jwtKey, { expiresIn: 3 * 60 * 60 }); // ES6
     generateToken = function (user) {
@@ -45,11 +52,7 @@ var jwt = require('jsonwebtoken'),
 
 /** login controller to extract relevant user info and use it to create, sign and then return jwt token */
 module.exports.login = function (req, res, next) {
-
-    // HTTP STATUS 200 - request succeeded
-    var OK = 200,
-        userInfo = setUserInfo(req.user);
-
+    var userInfo = setUserInfo(req.user);
     res.status(OK).json({
         token: 'JWT' + generateToken(userInfo),
         user: userInfo
@@ -60,11 +63,6 @@ module.exports.login = function (req, res, next) {
 /** registration controller */
 module.exports.register = function (req, res, next) {
 
-    // HTTP STATUS 201 - Created - request fulfilled and resulted in a new resource being created
-    // HTTP STATUS 422 - Unprocessable Entity - syntactically correct, but semantically erroneous
-    var CREATED = 201,
-        UNPROCESSABLE = 422;
-
     // registration validation
     if (!req.body.email) return res.status(UNPROCESSABLE).send({ error: 'You must enter an email address.' });
     if (!req.body.firstName || !req.body.lastName) return res.status(UNPROCESSABLE).send({ error: 'You must enter your full name.' });
@@ -73,7 +71,7 @@ module.exports.register = function (req, res, next) {
     // search for existing user
     User.findOne({ email: email }, function (err, foundUser) {
         var user;
-        
+
         if (err) return next(err);
         if (foundUser) return res.status(UNPROCESSABLE).send({ error: 'The email address is already in use.' });
 
@@ -86,7 +84,7 @@ module.exports.register = function (req, res, next) {
 
         user.save(function (err, savedUser) {
             var userInfo;
-            
+
             if (err) return next(err);
 
             // respond with jwt for newly created user
@@ -99,3 +97,24 @@ module.exports.register = function (req, res, next) {
     });
 };
 
+
+/** role authorisation controller */
+module.exports.roleAuthorisation = function (role) {
+    return function (req, res, next) {
+        var user = req.user;
+
+        User.findById(user._id, function (err, foundUser) {
+            if (err) {
+                res.status(UNPROCESSABLE).json({ error: 'No user was found.' });
+                return next(err);
+            }
+
+            if (foundUser.role !== role) {
+                res.status(UNAUTHORISED).json({ error: 'You are not authorised to view this content.' });
+                return next('Unauthorised');
+            }
+                
+            return next();
+        });
+    }
+}
