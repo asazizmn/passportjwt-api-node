@@ -21,8 +21,8 @@ var passport = require('passport'),
     LocalStrategy = require('passport-local'),
     JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt,
-    User = require('./models/User'),
-    config = require('./config');
+    User = require('./../models/User'),
+    config = require('./../config/main');
 
 
 
@@ -73,8 +73,9 @@ var passport = require('passport'),
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-    
 
+
+module.exports = passport;
 
 
 

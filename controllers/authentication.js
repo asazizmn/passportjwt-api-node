@@ -17,7 +17,7 @@ var jwt = require('jsonwebtoken'),
     // includes a set of wrappers for OpenSSL's hash, HMAC, cipher, decipher, sign and verify functions
     crypto = require('crypto'),
     User = require('./../models/User'),
-    config = require('./../config'),
+    config = require('./../config/main'),
 
 
     // HTTP STATUSES 

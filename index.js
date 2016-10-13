@@ -18,7 +18,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
 
     // sensitive configurations
-    config = require('./config.js');
+    config = require('./config/main');
 
 
 
