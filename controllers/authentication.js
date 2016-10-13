@@ -119,3 +119,6 @@ module.exports.roleAuthorisation = function (role) {
         });
     }
 }
+
+
+// forgot password & reset password also implemented here

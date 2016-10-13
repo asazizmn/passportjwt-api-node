@@ -53,6 +53,7 @@ var mongoose = require('mongoose'),
         },
 
         {
+            // this will additinally cause each user to store 'updatedAt' and 'createdAt' fields
             timestamps: true
         }
     );
