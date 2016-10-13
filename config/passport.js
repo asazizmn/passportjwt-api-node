@@ -22,7 +22,7 @@ var passport = require('passport'),
     JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt,
     User = require('./../models/User'),
-    config = require('./../config/main');
+    secret = require('./../config/secret');
 
 
 
@@ -53,7 +53,7 @@ var passport = require('passport'),
     // adapted from https://github.com/themikenicholson/passport-jwt
     jwtOptions = {
         jwtFromRequest: ExtractJwt.fromAuthHeader(),
-        secretOrKey: config.jwtKey
+        secretOrKey: secret.jwtKey
     },
     jwtStrategy = new JwtStrategy(jwtOptions, function(payload, next) {
 

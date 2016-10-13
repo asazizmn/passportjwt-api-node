@@ -17,7 +17,7 @@ var jwt = require('jsonwebtoken'),
     // includes a set of wrappers for OpenSSL's hash, HMAC, cipher, decipher, sign and verify functions
     crypto = require('crypto'),
     User = require('./../models/User'),
-    config = require('./../config/main'),
+    secret = require('./../config/secret'),
 
 
     // HTTP STATUSES 
@@ -28,9 +28,9 @@ var jwt = require('jsonwebtoken'),
 
 
     /** generate jwt, valid for 3 hours */
-    // generateToken = user => jwt.sign(user, config.jwtKey, { expiresIn: 3 * 60 * 60 }); // ES6
+    // generateToken = user => jwt.sign(user, secret.jwtKey, { expiresIn: 3 * 60 * 60 }); // ES6
     generateToken = function (user) {
-        return jwt.sign(user, config.jwtKey, { expiresIn: 3 * 60 * 60 });
+        return jwt.sign(user, secret.jwtKey, { expiresIn: 3 * 60 * 60 });
     },
 
     /** select user info to be included in jwt */
