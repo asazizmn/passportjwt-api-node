@@ -84,13 +84,13 @@ module.exports.register = function (req, res, next) {
             profile: { firstName: firstName, lastName: lastName }
         });
 
-        user.save(function (err, user) {
+        user.save(function (err, savedUser) {
             var userInfo;
             
             if (err) return next(err);
 
             // respond with jwt for newly created user
-            userInfo = setUserInfo(user);
+            userInfo = setUserInfo(savedUser);
             res.status(CREATED).json({
                 token: 'JWT' + generateToken(userInfo),
                 user: userInfo
