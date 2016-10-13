@@ -72,22 +72,25 @@ module.exports.register = function (req, res, next) {
 
     // search for existing user
     User.findOne({ email: email }, function (err, existingUser) {
+        var user;
+        
         if (err) return next(err);
         if (existingUser) return res.status(UNPROCESSABLE).send({ error: 'The email address is already in use.' });
 
         // valid email and password provided, create account 
-        var user = new User({
+        user = new User({
             email: email,
             password: password,
             profile: { firstName: firstName, lastName: lastName }
         });
 
         user.save(function (err, user) {
+            var userInfo;
+            
             if (err) return next(err);
 
-            var userInfo = setUserInfo(user);
-
             // respond with jwt for newly created user
+            userInfo = setUserInfo(user);
             res.status(CREATED).json({
                 token: 'JWT' + generateToken(userInfo),
                 user: userInfo
