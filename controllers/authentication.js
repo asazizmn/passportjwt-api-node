@@ -113,7 +113,8 @@ module.exports.roleAuthorisation = function (role) {
                 res.status(UNAUTHORISED).json({ error: 'You are not authorised to view this content.' });
                 return next('Unauthorised');
             }
-                
+
+            // no errors detected, continue with flow    
             return next();
         });
     }
