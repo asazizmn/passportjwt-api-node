@@ -17,8 +17,8 @@ var express = require('express'),
     logger = require('morgan'),
     mongoose = require('mongoose'),
 
-    // sensitive configurations
-    config = require('./config/main');
+    config = require('./config/main'),
+    routerAPI = require('./routes/api.js');
 
 
 
@@ -43,6 +43,10 @@ app.use(function (req, res, next) {
     next();
 });
 
+// bind api routes to become subroutes of '/api'
+app.use('/api', routerAPI);
+
+// define port to be 3000, or anything else provided by the environment
 app.set('port', process.env.PORT || 3000);
 
 
