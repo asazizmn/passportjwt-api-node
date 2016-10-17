@@ -33,7 +33,7 @@ var jwt = require('jsonwebtoken'),
         return jwt.sign(user, secret.jwtKey, { expiresIn: 3 * 60 * 60 });
     },
 
-    /** select user info to be included in jwt */
+    /** select user info to be included in jwt, shouldn't be entire user object, an shouldn't be sensitive */
     setUserInfo = function (user) {
         return {
             _id: user._id,
