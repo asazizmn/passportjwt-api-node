@@ -48,7 +48,7 @@ var passport = require('passport'),
     }),
 
 
-    // now setup jwt login strategy to allow for the return of jwt upon authentication
+    // now setup jwt signin strategy to allow for the return of jwt upon authentication
     // please note that 'payload' is an object literal containing the decoded JWT payload
     // adapted from https://github.com/themikenicholson/passport-jwt
     jwtOptions = {

@@ -90,7 +90,7 @@ UserSchema.pre('save', function (next) {
 
 
 /** 
- * Check password on login attempt against the hashed password stored,
+ * Check password on signin attempt against the hashed password stored,
  * 'next' represents the callback to execute once data has been compared 
  */
 UserSchema.methods.comparePassword = function (candidatePassword, next) {

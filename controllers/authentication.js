@@ -50,8 +50,8 @@ var jwt = require('jsonwebtoken'),
  * controllers
  */
 
-/** login controller to extract relevant user info and use it to create, sign and then return jwt token */
-module.exports.login = function (req, res, next) {
+/** signin controller to extract relevant user info and use it to create, sign and then return jwt token */
+module.exports.signin = function (req, res, next) {
     var userInfo = setUserInfo(req.user);
     res.status(OK).json({
         token: 'JWT' + generateToken(userInfo),
@@ -61,7 +61,7 @@ module.exports.login = function (req, res, next) {
 
 
 /** registration controller */
-module.exports.register = function (req, res, next) {
+module.exports.signup = function (req, res, next) {
 
     // registration validation
     if (!req.body.email) return res.status(UNPROCESSABLE).send({ error: 'You must enter an email address.' });
