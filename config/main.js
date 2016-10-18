@@ -6,5 +6,5 @@
 
 
 module.exports = {
-    database: 'mongodb://localhost/node-passport-jwt'
+    database: 'mongodb://localhost/passportjwt-api-node'
 };
