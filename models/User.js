@@ -47,7 +47,7 @@ var mongoose = require('mongoose'),
                 type: String
             },
 
-            resetPasswordExpress: {
+            resetPasswordExpires: {
                 type: Date
             }
         },
