@@ -52,6 +52,9 @@ var jwt = require('jsonwebtoken'),
 
 /** signin controller to extract relevant user info and use it to create, sign and then return jwt token */
 module.exports.signin = function (req, res, next) {
+
+    // pls nt the entire user object is available at req.user
+    // but additionally 'body-parser' allows us to view individual attributes at req.body.fooAttribute
     var userInfo = setUserInfo(req.user);
     res.status(OK).json({
         token: 'JWT' + generateToken(userInfo),
@@ -63,13 +66,13 @@ module.exports.signin = function (req, res, next) {
 /** registration controller */
 module.exports.signup = function (req, res, next) {
 
-    // registration validation
+    // registration validation, values coming directly from client i.e. hence 'req.body.firstName' and not 'req.body.profile.firstName'
     if (!req.body.email) return res.status(UNPROCESSABLE).send({ error: 'You must enter an email address.' });
     if (!req.body.password) return res.status(UNPROCESSABLE).send({ error: 'You must enter a password.' });
     if (!req.body.firstName || !req.body.lastName) return res.status(UNPROCESSABLE).send({ error: 'You must enter your full name.' });
 
     // search for existing user
-    User.findOne({ email: email }, function (err, foundUser) {
+    User.findOne({ email: req.body.email }, function (err, foundUser) {
         var user;
 
         if (err) return next(err);
@@ -77,9 +80,9 @@ module.exports.signup = function (req, res, next) {
 
         // valid email and password provided, create account 
         user = new User({
-            email: email,
-            password: password,
-            profile: { firstName: firstName, lastName: lastName }
+            email: req.body.email,
+            password: req.body.password,
+            profile: { firstName: req.body.firstName, lastName: req.body.lastName }
         });
 
         user.save(function (err, savedUser) {
