@@ -57,7 +57,7 @@ module.exports.signin = function (req, res, next) {
     // but additionally 'body-parser' allows us to view individual attributes at req.body.fooAttribute
     var userInfo = setUserInfo(req.user);
     res.status(OK).json({
-        token: 'JWT' + generateToken(userInfo),
+        token: 'JWT ' + generateToken(userInfo),
         user: userInfo
     });
 };
@@ -114,7 +114,7 @@ module.exports.roleAuthorisation = function (role) {
 
             if (foundUser.role !== role) {
                 res.status(UNAUTHORISED).json({ error: 'You are not authorised to view this content.' });
-                return next('Unauthorised');
+                return next(err);
             }
 
             // no errors detected, continue with flow    
