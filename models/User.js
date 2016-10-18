@@ -41,14 +41,14 @@ var mongoose = require('mongoose'),
                 type: String,
                 enum: ['Member', 'Client', 'Owner', 'Admin'],
                 default: 'Member'
-            },
+            }
 
             // TODO: password reset
-            /*resetPasswordToken: {
+            /*, resetPasswordToken: {
                 type: String
-            },
+            }
 
-            resetPasswordExpires: {
+            , resetPasswordExpires: {
                 type: Date
             }*/
         },
