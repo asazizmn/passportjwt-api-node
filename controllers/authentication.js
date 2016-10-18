@@ -65,8 +65,8 @@ module.exports.signup = function (req, res, next) {
 
     // registration validation
     if (!req.body.email) return res.status(UNPROCESSABLE).send({ error: 'You must enter an email address.' });
-    if (!req.body.firstName || !req.body.lastName) return res.status(UNPROCESSABLE).send({ error: 'You must enter your full name.' });
     if (!req.body.password) return res.status(UNPROCESSABLE).send({ error: 'You must enter a password.' });
+    if (!req.body.firstName || !req.body.lastName) return res.status(UNPROCESSABLE).send({ error: 'You must enter your full name.' });
 
     // search for existing user
     User.findOne({ email: email }, function (err, foundUser) {

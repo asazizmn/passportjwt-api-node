@@ -43,13 +43,14 @@ var mongoose = require('mongoose'),
                 default: 'Member'
             },
 
-            resetPasswordToken: {
+            // TODO: password reset
+            /*resetPasswordToken: {
                 type: String
             },
 
             resetPasswordExpires: {
                 type: Date
-            }
+            }*/
         },
 
         {
