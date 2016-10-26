@@ -48,8 +48,14 @@ var passport = require('passport'),
     }),
 
 
-    // now setup jwt signin strategy to allow for the return of jwt upon authentication
-    // please note that 'payload' is an object literal containing the decoded JWT payload
+    // now setup jwt strategy to verify the provided token
+    // 
+    // please note that for creating the JWT, 
+    // the payload was digitally signed using a combination of the data and a secret key known only to the server
+    // so the token contains the payload and the signature. But when the token is passed back,
+    // the payload is validated using the secret key and that signature. If they don't match, the token is invalid.
+    //
+    // also lease note that 'payload' is an object literal containing the decoded JWT payload
     // adapted from https://github.com/themikenicholson/passport-jwt
     jwtOptions = {
         jwtFromRequest: ExtractJwt.fromAuthHeader(),
@@ -57,10 +63,6 @@ var passport = require('passport'),
     },
     jwtStrategy = new JwtStrategy(jwtOptions, function(payload, next) {
 
-        // payload._id vs payload.doc._id vs payload.document._id
-        // check console.log(payload)
-
-        // User.findOne({ _id: payload._id }, function(err, user) {
         User.findById(payload._id, function(err, user) {
             if (err) return next(err, false);
             if (!user) return next(null, false);
