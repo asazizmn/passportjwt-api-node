@@ -22,7 +22,7 @@ var passport = require('passport'),
     JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt,
     User = require('./../models/User'),
-    secret = require('./../config/secret');
+    secret = require('./../config/secret'),
 
 
 
