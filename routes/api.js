@@ -12,7 +12,6 @@
 var express = require('express'),
     routerAuth = express.Router(),
     routerAPI = express.Router(),
-    routerTest = express.Router(), // REMOVE before production
     passport = require('./../config/passport'),
     Authentication = require('./../controllers/authentication'),
 
